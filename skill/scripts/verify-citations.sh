@@ -28,8 +28,9 @@ verify_one() {
     echo "NOFILE"
     return
   fi
-  # 固定字符串匹配(-F)，避免符号里的正则元字符误判；-q 静默。
-  if grep -Fq -- "$sym" "$file"; then
+  # 固定字符串 + 词边界匹配(-Fw)：避免短符号被长符号子串掩护误判命中
+  # （如 resolveEventKey 不再误命中 resolveUploadEventKey）。多词符号(如 "pub fn run")亦按整体词边界。
+  if grep -Fwq -- "$sym" "$file"; then
     echo "HIT"
   else
     echo "MISS"
