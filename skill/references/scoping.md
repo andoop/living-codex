@@ -29,8 +29,20 @@
 - 子 agent 报 `in`/`out` 且证据清楚 → 主 agent 采纳，把 `out` 的写进 `.codebookignore`。
 - 子 agent 报 `ESCALATE` 或主 agent 存疑 → **写进 `questions`/直接问开发者**，人定。子 agent 只报事实，**决策永远在主 agent/人**。
 - 决策留痕：在 `docs/codebook/scope-decisions.md` 记每个文件夹的事实 + 裁决 + 依据。
+- 文件类型常识（据客观事实，非主观）：图片/视频/音频/字体/二进制/压缩包等**非代码资源**默认 `out`（除非是被分析的配置/数据）；纯生成码、vendored 第三方默认 `out`。
 
-## 第 4 步：建 manifest
+## 第 3.5 步：对 `.codebookignore` 做推演 + 红蓝对抗（范围契约也要审）
+`.codebookignore` 是决定"全覆盖分母"的契约，**它本身必须被独立审核**，不能主 agent 一人说了算：
+- **头脑预演子 agent（覆盖闭环）**：审"**该进的有没有被错误排除**"——逐条 ignore 规则核对，有没有把项目自有源码、关键配置误排掉；范围是否逻辑自洽。
+- **红蓝对抗子 agent（攻击这份范围）**：攻 ①有没有把**真源码偷偷排掉**（漏测伪装成"忽略"）②有没有把**垃圾/第三方算进来**虚高分母 ③有没有靠**扩大忽略缩小分母**假装"全覆盖"④非代码资源排除是否有客观依据。每条给可复现证据 + P0–P3。
+- 发现问题 → 主 agent 修 `.codebookignore` → 再审，直到 P0/P1 清零。审核报告落 `docs/codebook/audit/scope-audit-<n>.md`。
+
+## 第 3.6 步：人最终审批（硬门禁，不可跳过）
+<HARD-GATE>
+`.codebookignore` 经推演+对抗修订并 P0/P1 清零后，**必须把最终范围（in-scope 文件总数 + 忽略规则摘要 + scope-decisions）提交开发者审批**。**未获人明确批准，禁止进入第 4 步 manifest / 禁止开始任何画像绘制。** 这是"先定好范围、人审过、再完整绘制"的硬约束。
+</HARD-GATE>
+
+## 第 4 步：建 manifest（仅在人批准后）
 范围敲定后，`find` 时应用 `.codebookignore`，只把 in-scope 文件写进 `manifest.md`。**这个干净分母才是"全做完"的基准。**
 
 ## 诚实红线

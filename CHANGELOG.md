@@ -3,6 +3,15 @@
 All notable changes to Living Codex are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); this project aims for [SemVer](https://semver.org/).
 
+## [0.5.0] - 2026-06-22
+范围契约门禁：`.codebookignore` 先草拟→推演→红蓝对抗→**人最终审批**，批准后才开绘。源于反馈"ignore 也该推演对抗，由 AI 据客观事实定、人最终审核，没问题再完整绘制"。
+
+### Added
+- `references/scoping.md` 升级为带门禁的小闭环：① 据客观事实草拟 `.codebookignore`（含图片/视频/二进制等非代码资源默认排除）② 单一职责文件夹侦察子 agent（只报事实+建议、不带情绪、ESCALATE 交人、决策归主 agent）③ 对 ignore 本身做推演+红蓝对抗（审"该进的没误排、垃圾没混入、没缩分母假全覆盖"）④ **人最终审批硬门禁——未批准禁止建 manifest/禁止开绘**。
+
+## [0.4.0] - 2026-06-22
+SCOPE 范围界定：`.codebookignore`（gitignore 语法）+ 单一职责文件夹侦察子 agent。修复 v0.3 教训——默认忽略加入本 skill 自身安装副本 `.agents/.claude/.cursor/.kiro`（曾被误纳入测绘，分母虚高）。
+
 ## [0.3.0] - 2026-06-22
 全覆盖逐文件画像模式：一次性做完、不留下一轮。源于反馈"不想分轮，定好目标做 TODO，逐文件做画像，全覆盖"。
 

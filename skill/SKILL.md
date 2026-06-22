@@ -88,7 +88,7 @@ OBJECTIVES → SCOPE → PARTITION → SURVEY → SYNTHESIZE → PRESENT → AUD
 | **`full`** | **manifest：枚举全部 in-scope 文件，逐一画像** | **manifest TODO 100% 勾完** | **一次性全覆盖、不留下一轮 / 审计 / 完整知识库** |
 
 **`full` 模式要点**（详见 `references/file-portraits.md`）：
-1. **MANIFEST**：**先界定干净范围**（见 `references/scoping.md`）——① 生成 `.codebookignore`（种子=项目 `.gitignore` + Living Codex 默认：构建产物/二进制/**本 skill 自身安装副本 `.agents/.claude/.cursor/.kiro`**/codebook 产物），让开发者确认；② 对文件夹分批派**单一职责侦察子 agent**（`prompts/scoping-folder.md`，只报客观事实+建议、拿不准 ESCALATE、决策归主 agent/人）；③ 主 agent 决策并把 out 写进 `.codebookignore`、留痕 `scope-decisions.md`。然后应用 `.codebookignore` 用 `find` 列 in-scope 文件 → 写 `docs/codebook/manifest.md`（每文件一行 `- [ ]`，仅主 agent 写）。**这个干净总数 = 分母。**
+1. **MANIFEST**：**先界定干净范围**（见 `references/scoping.md`）——① 生成 `.codebookignore`（种子=项目 `.gitignore` + Living Codex 默认：构建产物/二进制/非代码资源(图片视频音频)/**本 skill 自身安装副本 `.agents/.claude/.cursor/.kiro`**/codebook 产物），② 文件夹分批派**单一职责侦察子 agent**（只报客观事实+建议、ESCALATE 交人）③ 主 agent 决策 ④ **对 `.codebookignore` 做推演+红蓝对抗**（审"该进的没误排、垃圾没混入、没靠扩大忽略缩分母假全覆盖"）⑤ **人最终审批范围（硬门禁）**。**未获人批准，禁止建 manifest、禁止开绘。** 批准后才应用 ignore 用 `find` 列 in-scope 文件 → `docs/codebook/manifest.md`。**这个人审过的干净总数 = 分母。**
 2. **PORTRAIT**：按 manifest **逐文件**用 `templates/file-portrait.md` 产画像（聚合进 `portraits/<module>.md`），完成一个勾一个 `[x]`；超大/生成码画不动标 `[~]`+写明原因入未解之谜（仍计已处理，不许跳过不记）。
 3. **DONE 闸门（核心）**：manifest 还有 `- [ ]` → **未完成、自动接着 grind**（resume 从第一个未勾处继续，**这是自动续跑、不是要用户决策的"下一轮"**）；**TODO 未清零禁止进 SYNTHESIZE 或宣布完成**。全勾完才 SYNTHESIZE→PRESENT→AUDIT→SIGN-OFF。
 4. 诚实不变：全覆盖=每个文件都有画像卡，**不等于**每个文件都运行验证；行为结论照样「推断」。排除清单须在 manifest 显式列出，不许缩小分母假装全覆盖。
