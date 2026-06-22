@@ -8,7 +8,7 @@
 
 ```
 docs/codebook/
-├── README.md                 # 书首页：TOC + 当前档位 + 全局免责
+├── README.md                 # 书首页：TOC + 当前档位 + 全局免责（用 `templates/codebook-README.md` 生成）
 ├── 00-architecture.md        # D1 架构总览
 ├── 10-modules/               # D2 各模块一章
 │   └── <module>.md

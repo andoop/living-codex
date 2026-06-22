@@ -41,7 +41,7 @@ OBJECTIVES → SCOPE → PARTITION → SURVEY → SYNTHESIZE → PRESENT → AUD
 | 阶段 | 做什么 | 谁来做 | 详见 |
 |---|---|---|---|
 | **OBJECTIVES** | 先定**测绘目标与验收**：这本书帮谁回答什么；**覆盖目标**（哪些子系统必须深读、到什么深度）；**完成定义**（可验收标准）。写入 `docs/codebook/objectives.md`。**大项目必须显式设覆盖目标矩阵与每区深度**，并与开发者确认。 | 主 agent（与开发者确认） | `references/objectives.md` |
-| **SCOPE** | 定档位(backend)、深度(L1–L4)、人设、语言、token 预算 | 主 agent | §3, `references/provenance.md` |
+| **SCOPE** | 定档位(backend)、深度(L1–L4)、人设、语言、token 预算；**界定范围：生成/确认 `.codebookignore`（排除构建产物/二进制/非代码资源/本 skill 安装副本）** | 主 agent | §3, `references/provenance.md`, `references/scoping.md` |
 | **PARTITION** | 切 territory，写 `survey-state.md`（todo/doing/done + 边界 + 文件清单） | 主 agent **单线程写** | `references/orchestration.md` |
 | **SURVEY** | 分批扇出**只读叶子** agent，各写自己的 `territory-report-<id>.md` | 主 agent 扇出 / 叶子只读 | `references/orchestration.md`, `prompts/subagent-survey.md` |
 | **SYNTHESIZE** | **多级归并** territory→subsystem→global，保留显式跨边清单 | 主 agent | `references/orchestration.md` |
