@@ -7,9 +7,9 @@ set -u
 M="${1:-docs/codebook/manifest.md}"
 [ -f "$M" ] || { echo "NO_MANIFEST: $M"; exit 2; }
 
-todo=$(grep -c '^[[:space:]]*- \[ \]' "$M" 2>/dev/null || echo 0)
-done=$(grep -c '^[[:space:]]*- \[x\]' "$M" 2>/dev/null || echo 0)
-skip=$(grep -c '^[[:space:]]*- \[~\]' "$M" 2>/dev/null || echo 0)
+todo=$(grep -c '^[[:space:]]*- \[ \]' "$M" 2>/dev/null); todo=${todo:-0}
+done=$(grep -c '^[[:space:]]*- \[x\]' "$M" 2>/dev/null); done=${done:-0}
+skip=$(grep -c '^[[:space:]]*- \[~\]' "$M" 2>/dev/null); skip=${skip:-0}
 total=$((todo + done + skip))
 
 printf 'manifest=%s total=%s done=%s skipped=%s remaining=%s\n' "$M" "$total" "$done" "$skip" "$todo"
