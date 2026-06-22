@@ -9,6 +9,8 @@
   ```
   # build / deps / vcs
   build/  .gradle/  .git/  .idea/  node_modules/  .cxx/  captures/  dist/  out/
+  # vendored / 第三方 / 虚拟环境 / 生成（常见噪声，默认排除；如确需可显式取消）
+  .venv/  venv/  3rd/  3rdparty/  third_party/  thirdparty/  vendor/  Pods/  .dart_tool/  site-packages/
   # binaries
   *.class *.jar *.aar *.so *.flat *.png *.jpg *.jpeg *.webp *.gif *.ttf *.otf *.keystore *.kapt_metadata
   # Living Codex 自身安装副本与产物（绝不自我测绘）
