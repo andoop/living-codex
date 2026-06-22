@@ -33,6 +33,13 @@
 - 全覆盖 ≠ 全部「已确认」：画像里行为结论照样「推断」，没读懂照样「未解之谜」。**全覆盖指"每个文件都被看过且有画像卡"，不是"每个文件都被运行验证"。**
 - manifest 的"100%"指 in-scope 文件，排除清单要在 manifest 里显式列出，不许用"缩小分母"假装全覆盖。
 
+## 强制遵守（机械闸门，不靠 AI 自觉）
+纯提示词无法 100% 强制 LLM。本模式靠**确定性脚本 + 编排循环**强制全覆盖：
+- `scripts/coverage-check.sh docs/codebook/manifest.md` 数未勾项；**只有剩 0 才 exit 0**。
+- **DONE 由该脚本的 exit 0 决定，不由 AI 自称**。编排方（主 agent / 宿主循环）：`while coverage-check.sh 返回非0：再派 writer 接着 grind`。AI 说"做完了"但脚本 exit 1 → **不算完，继续派**。
+- 因此 writer **无权**缩范围或提前收工：范围 = manifest 全集（排除规则已固化在 manifest 顶部），完成 = 脚本判定的 0 未勾。
+- 续跑天然成立：manifest 是磁盘台账，循环中断后再起，coverage-check 仍从真实剩余数继续逼近 0。
+
 ## AUDIT 对全覆盖模式的加查
 - **覆盖率核对**：manifest 总数 vs 已勾(含 `[x]`/`[~]`)数 = 100%？抽查若干"已勾"文件的画像真实存在且非空、关键符号 grep 命中。
 - 任何"未勾却已进 SYNTHESIZE / 宣布完成" = **P0**（完成度造假，违反 DONE 闸门）。
