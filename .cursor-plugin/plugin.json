@@ -1,0 +1,10 @@
+{
+  "name": "living-codex",
+  "displayName": "Living Codex · 活典",
+  "version": "0.1.0",
+  "description": "Honest code-comprehension skill: maps any codebase into a traceable, confidence-graded book. Never fakes verification.",
+  "license": "MIT",
+  "skills": [
+    { "name": "cartographer", "path": "./skill/SKILL.md" }
+  ]
+}

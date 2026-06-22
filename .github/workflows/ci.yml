@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ShellCheck optional scripts
+        run: |
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          shellcheck skill/scripts/*.sh install.sh || true   # advisory, never blocks
+
+      - name: Validate skill structure
+        run: |
+          set -e
+          for f in skill/SKILL.md skill/references/provenance.md skill/references/orchestration.md \
+                   skill/references/self-review.md skill/scripts/verify-citations.sh LICENSE README.md; do
+            test -f "$f" && echo "ok $f" || { echo "MISSING $f"; exit 1; }
+          done
+
+      - name: Honesty red-line scan (no affirmative "verified" wording in skill)
+        run: |
+          # 允许出现在“禁用清单/否定语境”，禁止肯定性使用；这里做软提示
+          if grep -rnE "已验证|verified" skill/ | grep -vEi "禁|不|never|不得|绝不|forbid|do not"; then
+            echo "::warning::发现疑似肯定性'已验证'措辞，请人工复核是否违反 honesty 红线"
+          else
+            echo "ok: no affirmative 'verified' wording"
+          fi
+
+      - name: verify-citations.sh smoke test
+        run: |
+          printf 'HELLO_LC\n' > /tmp/probe.txt
+          bash skill/scripts/verify-citations.sh /tmp/probe.txt HELLO_LC && echo "HIT ok"
+          if bash skill/scripts/verify-citations.sh /tmp/probe.txt NOPE; then echo "MISS should fail"; exit 1; else echo "MISS ok"; fi

@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Living Codex runtime / scratch
+.sandtable-runtime/
+*.log
+
+# Optional backend artifacts (never committed)
+node_modules/
+dist/
+.vite/
+
+# Generated codebooks live in the TARGET project, not here.
+# (examples/ intentionally commits one real sample.)
