@@ -3,6 +3,14 @@
 All notable changes to Living Codex are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); this project aims for [SemVer](https://semver.org/).
 
+## [0.6.0] - 2026-06-22
+manifest 审阅与返工 + 默认排隐藏目录 + 可"只要原始代码"。源于反馈"看到 manifest 后还想再删，比如编译产出/`.`开头目录/只看原始代码"。
+
+### Added/Changed
+- `.codebookignore` 默认追加 **所有 `.` 开头隐藏目录** 与 vendored 缓存（`ephemeral/.plugin_symlinks/.pub-cache`）。
+- 支持**按扩展名/文件性质收窄**：一键"只要原始代码"（排 `*.xml/*.json/*.properties/*.gradle/*.pro` 等资源配置）。
+- SCOPE 流程加 **manifest 审阅与返工循环**：建草案 manifest→开发者审阅→可按文件夹/扩展名/路径收窄→重算→循环；**硬门禁从"审 ignore"上移到"审最终 manifest"**，未批准这份清单禁止开绘。
+
 ## [0.5.0] - 2026-06-22
 范围契约门禁：`.codebookignore` 先草拟→推演→红蓝对抗→**人最终审批**，批准后才开绘。源于反馈"ignore 也该推演对抗，由 AI 据客观事实定、人最终审核，没问题再完整绘制"。
 

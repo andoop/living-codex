@@ -7,14 +7,16 @@
 - **种子**：把项目 `.gitignore` 内容**同步**进来打底（构建产物、IDE、依赖多半已在里面）。
 - **Living Codex 默认追加**（始终忽略）：
   ```
-  # build / deps / vcs
-  build/  .gradle/  .git/  .idea/  node_modules/  .cxx/  captures/  dist/  out/
+  # build / deps / vcs / 所有隐藏目录（IDE/工具/缓存/VCS，默认全排）
+  build/  .gradle/  .git/  .idea/  node_modules/  .cxx/  captures/  dist/  out/  .*/
   # vendored / 第三方 / 虚拟环境 / 生成（常见噪声，默认排除；如确需可显式取消）
-  .venv/  venv/  3rd/  3rdparty/  third_party/  thirdparty/  vendor/  Pods/  .dart_tool/  site-packages/
+  .venv/  venv/  3rd/  3rdparty/  third_party/  thirdparty/  vendor/  Pods/  .dart_tool/  site-packages/  ephemeral/  .plugin_symlinks/  .pub-cache/
   # binaries
   *.class *.jar *.aar *.so *.flat *.png *.jpg *.jpeg *.webp *.gif *.ttf *.otf *.keystore *.kapt_metadata
   # Living Codex 自身安装副本与产物（绝不自我测绘）
   .agents/ .claude/ .cursor/ .kiro/ docs/codebook/ docs/codebook-*/
+  ```
+- **可按"文件性质"收窄**（`.codebookignore` 支持扩展名规则）：开发者可选"**只要原始代码**"——排除资源/配置/数据类（`*.xml *.json *.properties *.yml *.yaml *.gradle *.pro` 等），只留代码语言文件（`.java/.kt/.dart/.cpp/.c/.h/.py/.sh/...`）。这是常见诉求，应在 manifest 审阅时支持一键收窄。
   ```
 - **让开发者确认**：把生成的 `.codebookignore` 给开发者过目/增删一次（这是范围契约，值得确认）。
 
@@ -39,12 +41,25 @@
 - **红蓝对抗子 agent（攻击这份范围）**：攻 ①有没有把**真源码偷偷排掉**（漏测伪装成"忽略"）②有没有把**垃圾/第三方算进来**虚高分母 ③有没有靠**扩大忽略缩小分母**假装"全覆盖"④非代码资源排除是否有客观依据。每条给可复现证据 + P0–P3。
 - 发现问题 → 主 agent 修 `.codebookignore` → 再审，直到 P0/P1 清零。审核报告落 `docs/codebook/audit/scope-audit-<n>.md`。
 
-## 第 3.6 步：人最终审批（硬门禁，不可跳过）
+## 第 3.6 步：ignore 初审（范围草案）
+- 经推演+对抗、P0/P1 清零后，得到 `.codebookignore` 草案 + 范围摘要。可继续建**草案 manifest**（第 4 步）让开发者看真实清单——**真正的硬门禁在第 4.6 步（审批 manifest）**，绘制前必须过。
+
+## 第 4 步：建**草案** manifest
+范围初定后，应用 `.codebookignore` 用 `find` 列 in-scope 文件 → 写 `docs/codebook/manifest.md`（**草案**，每文件一行 `- [ ]`）。同时输出**构成摘要**（总数、按语言/按顶层目录分布）给开发者看。
+
+## 第 4.5 步：manifest 审阅与返工（可迭代，关键）
+> 开发者**看到真实文件清单后**常会想再删（这正是本步存在的理由）。
+- 把 manifest 的**总数 + 语言分布 + 目录分布 + 排除规则摘要**呈现给开发者。
+- 开发者可提出收窄：按**文件夹**（如再去掉某目录）、按**扩展名/性质**（如"只要原始代码"→排 `*.xml/*.json/*.properties/*.gradle` 等资源配置）、按**路径模式**。
+- 主 agent 据此**更新 `.codebookignore` → 重新生成 manifest → 再呈现**。**循环，直到开发者满意。**
+- 每次返工在 `scope-decisions.md` 记一笔（改了什么、为什么、新总数）。
+
+## 第 4.6 步：人最终审批 manifest（硬门禁，不可跳过）
 <HARD-GATE>
-`.codebookignore` 经推演+对抗修订并 P0/P1 清零后，**必须把最终范围（in-scope 文件总数 + 忽略规则摘要 + scope-decisions）提交开发者审批**。**未获人明确批准，禁止进入第 4 步 manifest / 禁止开始任何画像绘制。** 这是"先定好范围、人审过、再完整绘制"的硬约束。
+**审批对象是最终 manifest（不是只审 ignore）。** 未获开发者对"这份文件清单"明确批准，**禁止开始任何画像绘制（grind）**。开发者说"批准/开绘"后，manifest 由草案转正式，方可进入逐文件画像。
 </HARD-GATE>
 
-## 第 4 步：建 manifest（仅在人批准后）
+## 第 5 步：grind（仅在 manifest 获批后）见 `references/file-portraits.md`。
 范围敲定后，`find` 时应用 `.codebookignore`，只把 in-scope 文件写进 `manifest.md`。**这个干净分母才是"全做完"的基准。**
 
 ## 诚实红线
