@@ -76,6 +76,11 @@ codex map . --personas architect,newgrad,security,sre # 默认全套
 ### `codex onboard [--persona p] [--horizon day1|week1]` — 上手路线
 按依赖拓扑给"第 1 天 / 第 1 周该读哪些章节与文件"的有序清单。
 
+### `codex audit` — 独立监督审核（v0.2 新增·关键）
+对**已建好的 codebook** 派**独立子 agent**（与写书的不同上下文）做 **头脑预演（覆盖/逻辑闭环）+ 红蓝对抗（揪过度声明/编造引用/漏测关键子系统/完成度造假）**，对照 `objectives.md` 验收。审核报告落 `docs/codebook/audit/`。
+> `map` 默认已内含 OBJECTIVES（先定目标）→ … → AUDIT → SIGN-OFF（对照目标验收才算完成）。`codex audit` 是把审核单独再跑一轮。
+> **`audit` ≠ `review`**：`review` 是同上下文轻量自查；`audit` 是独立子 agent 对抗式审核，且**是判定"是否真完成"的依据**。大项目尤其必须 audit——避免"扇出失败→浅扫几个模块→自称完成"。
+
 > **刻意没有 `codex check`（PR 硬门禁）**：LLM 判定不可复现，放到"必须可复现"的合并关卡上是范畴错配，会误报阻断正常合并。见 [honesty.md](honesty.md)。
 
 ---

@@ -36,6 +36,7 @@
 | 📖 **一本能读的厚书** | TOC + 分章 + 章节摘要 + Mermaid 架构/数据流图，纯 Markdown，**Obsidian 兼容**（白捡图谱/反链/搜索） |
 | 🎭 **多人设视角** | 架构师 / 新人 onboarding / 安全 / SRE 各成一章，绑定不同入口与风险清单 |
 | 🔬 **三档可信度** | `已确认`（仅字面存在性，已 grep 核验）/ `推断` / `未解之谜`——一眼看清哪些能信、哪些待查 |
+| 🛂 **独立监督审核** | 先定目标 → 产出 → 派**独立子 agent** 做头脑预演+红蓝对抗审核 → 对照目标验收。**完成 = 过审，不是 AI 自称** |
 | 🧭 **依赖序 onboarding 路线** | 「第 1 天 / 第 1 周该读哪些章节与文件」的有序清单 |
 | ♻️ **可移植 · 零运行时** | 一份 Markdown skill，装进任何 agent（Claude / Cursor / Codex / Kiro）即用，无需 Node / 编译 |
 | 🛡️ **诚实红线内建** | 不假装验证 · 不编造行号 · 行为结论最高只标推断 · 不写密钥原文 · 只读不改你的源码 |
@@ -97,12 +98,13 @@ codex onboard --persona newgrad --horizon week1
 ## ⚙️ 原理
 
 ```
-SCOPE  →  PARTITION  →  SURVEY  →  SYNTHESIZE  →  PRESENT
-摸边界    切 territory   只读子agent   多级归并        分档厚书
-          (写 survey-     并行测绘      territory→       +人设
-           state)        (主agent单      subsystem        +图
-                         层扇出)         →global
+OBJECTIVES → SCOPE → PARTITION → SURVEY → SYNTHESIZE → PRESENT → AUDIT ⇄ (再做一轮) → SIGN-OFF
+先定目标      摸边界   切territory   只读子agent   多级归并       分档厚书   独立子agent审核        对照目标验收
++覆盖矩阵                            并行测绘                     +人设+图   头脑预演+红蓝对抗      才算完成
 ```
+
+- **先定目标再开测**：`map` 第一步产出 `objectives.md`（覆盖目标矩阵 + 可验收完成定义），大项目须与开发者确认——杜绝"浅扫几个模块就自称完成"。
+- **独立监督审核（AUDIT）**：产出后派**独立子 agent**（非写书上下文）做头脑预演 + 红蓝对抗，对照目标揪覆盖缺口/过度声明/编造引用。**完成 = 过审，不是 AI 自称。**
 
 - **编排集中化**：扇出只在顶层主 agent；子 agent 是**只读叶子、不再扇出、只写自己的 report**；状态/日志仅主 agent 单写（杜绝竞态）。
 - **并发自适应**：并发 = `min(宿主上限, 待测数)`，串行分批覆盖全量，宿主受限自动降级（不承诺虚标的"100 并行"）。
