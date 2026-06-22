@@ -1,59 +1,78 @@
 #!/usr/bin/env bash
 # Living Codex installer — copies the cartographer skill into your AI agent.
-# Zero runtime deps. Pure-methodology skill; optional scripts degrade gracefully.
-#
-# Usage:
-#   ./install.sh                 # auto-detect agent(s) in the current project
-#   ./install.sh kiro            # force a specific platform
-#   ./install.sh --uninstall kiro
-#
+# Works two ways:
+#   • piped:  curl -fsSL .../install.sh | bash            (downloads the skill)
+#             curl -fsSL .../install.sh | bash -s kiro    (force a platform)
+#   • local:  ./install.sh [platform] [--uninstall]       (uses ./skill next to it)
+# Zero runtime deps for the skill itself; the installer needs git only on the piped path.
 # Supported platforms: kiro | claude | cursor | codex | generic
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILL_SRC="$SCRIPT_DIR/skill"
-PROJECT_ROOT="${LIVING_CODEX_TARGET:-$PWD}"
+REPO_URL="https://github.com/andoop/living-codex.git"
 SKILL_NAME="cartographer"
+PROJECT_ROOT="${LIVING_CODEX_TARGET:-$PWD}"
 
-log()  { printf '[living-codex] %s\n' "$*"; }
-die()  { printf '[living-codex] ERROR: %s\n' "$*" >&2; exit 1; }
+log() { printf '[living-codex] %s\n' "$*"; }
+die() { printf '[living-codex] ERROR: %s\n' "$*" >&2; exit 1; }
 
-[ -f "$SKILL_SRC/SKILL.md" ] || die "skill/ not found next to install.sh"
+# --- locate skill source: local copy next to this script, else download repo ---
+CLEANUP=""
+cleanup() { [ -n "$CLEANUP" ] && rm -rf "$CLEANUP" || true; }
+trap cleanup EXIT
 
+SELF="${BASH_SOURCE[0]:-}"
+SKILL_SRC=""
+if [ -n "$SELF" ]; then
+  SELF_DIR="$(cd "$(dirname "$SELF")" 2>/dev/null && pwd || true)"
+  if [ -n "$SELF_DIR" ] && [ -f "$SELF_DIR/skill/SKILL.md" ]; then
+    SKILL_SRC="$SELF_DIR/skill"
+    log "using local skill: $SKILL_SRC"
+  fi
+fi
+if [ -z "$SKILL_SRC" ]; then
+  command -v git >/dev/null 2>&1 || die "git is required for the piped install. Either install git, or clone the repo and run ./install.sh locally."
+  CLEANUP="$(mktemp -d)"
+  log "downloading skill from $REPO_URL ..."
+  git clone --depth 1 "$REPO_URL" "$CLEANUP/living-codex" >/dev/null 2>&1 || die "git clone failed ($REPO_URL)"
+  SKILL_SRC="$CLEANUP/living-codex/skill"
+fi
+[ -f "$SKILL_SRC/SKILL.md" ] || die "skill/SKILL.md not found at $SKILL_SRC"
+
+# --- parse args (safe under set -u even with no args) ---
 UNINSTALL=0
 PLATFORM=""
 for arg in "$@"; do
   case "$arg" in
     --uninstall) UNINSTALL=1 ;;
     kiro|claude|cursor|codex|generic) PLATFORM="$arg" ;;
-    *) die "unknown arg: $arg" ;;
+    *) die "unknown arg: $arg (use one of: kiro claude cursor codex generic [--uninstall])" ;;
   esac
 done
 
 detect_platforms() {
-  local found=()
-  [ -d "$PROJECT_ROOT/.kiro" ]   && found+=("kiro")
-  [ -e "$PROJECT_ROOT/CLAUDE.md" ] || [ -d "$PROJECT_ROOT/.claude" ] && found+=("claude")
-  [ -d "$PROJECT_ROOT/.cursor" ] && found+=("cursor")
-  [ -d "$PROJECT_ROOT/.codex" ] || [ -d "$PROJECT_ROOT/.agents" ] && found+=("codex")
-  [ ${#found[@]} -eq 0 ] && found+=("generic")
-  printf '%s\n' "${found[@]}"
+  out=""
+  [ -d "$PROJECT_ROOT/.kiro" ] && out="$out kiro" || true
+  if [ -e "$PROJECT_ROOT/CLAUDE.md" ] || [ -d "$PROJECT_ROOT/.claude" ]; then out="$out claude"; fi
+  [ -d "$PROJECT_ROOT/.cursor" ] && out="$out cursor" || true
+  if [ -d "$PROJECT_ROOT/.codex" ] || [ -d "$PROJECT_ROOT/.agents" ]; then out="$out codex"; fi
+  [ -z "$out" ] && out="generic" || true
+  printf '%s' "$out"
 }
 
 dest_dir() {
   case "$1" in
-    kiro)    printf '%s\n' "$PROJECT_ROOT/.kiro/skills/$SKILL_NAME" ;;
-    claude)  printf '%s\n' "$PROJECT_ROOT/.claude/skills/$SKILL_NAME" ;;
-    cursor)  printf '%s\n' "$PROJECT_ROOT/.cursor/skills/$SKILL_NAME" ;;
-    codex)   printf '%s\n' "$PROJECT_ROOT/.agents/skills/$SKILL_NAME" ;;
-    generic) printf '%s\n' "$PROJECT_ROOT/skills/$SKILL_NAME" ;;
+    kiro)    printf '%s' "$PROJECT_ROOT/.kiro/skills/$SKILL_NAME" ;;
+    claude)  printf '%s' "$PROJECT_ROOT/.claude/skills/$SKILL_NAME" ;;
+    cursor)  printf '%s' "$PROJECT_ROOT/.cursor/skills/$SKILL_NAME" ;;
+    codex)   printf '%s' "$PROJECT_ROOT/.agents/skills/$SKILL_NAME" ;;
+    generic) printf '%s' "$PROJECT_ROOT/skills/$SKILL_NAME" ;;
   esac
 }
 
 install_one() {
-  local plat="$1" dest; dest="$(dest_dir "$plat")"
+  plat="$1"; dest="$(dest_dir "$plat")"
   if [ "$UNINSTALL" -eq 1 ]; then
-    [ -d "$dest" ] && { rm -rf "$dest"; log "removed $dest"; } || log "nothing at $dest"
+    if [ -d "$dest" ]; then rm -rf "$dest"; log "removed $dest"; else log "nothing at $dest"; fi
     return
   fi
   mkdir -p "$dest"
@@ -61,17 +80,18 @@ install_one() {
   log "installed → $dest"
 }
 
-PLATS=()
-if [ -n "$PLATFORM" ]; then PLATS=("$PLATFORM"); else mapfile -t PLATS < <(detect_platforms); fi
-log "target project: $PROJECT_ROOT"
-log "platforms: ${PLATS[*]}"
-for p in "${PLATS[@]}"; do install_one "$p"; done
+if [ -n "$PLATFORM" ]; then PLATS="$PLATFORM"; else PLATS="$(detect_platforms)"; fi
+log "target project : $PROJECT_ROOT"
+log "platform(s)    : $PLATS"
+for p in $PLATS; do install_one "$p"; done
 
 if [ "$UNINSTALL" -eq 0 ]; then
-  cat <<EOF
+  cat <<'EOF'
 
-[living-codex] Done. Restart your agent, then run:
+[living-codex] Done. Restart your agent, then in the agent run:
     codex map . --depth L2 --personas architect,newgrad,security,sre
-Output → <project>/docs/codebook/ (Obsidian-compatible). Honesty-first: see skill/references/provenance.md
+Output → <project>/docs/codebook/  (Obsidian-compatible)
+Commands & depth levels → https://github.com/andoop/living-codex/blob/main/docs/commands.md
+Honesty model           → https://github.com/andoop/living-codex/blob/main/docs/honesty.md
 EOF
 fi

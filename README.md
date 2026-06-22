@@ -73,6 +73,8 @@ irm https://raw.githubusercontent.com/andoop/living-codex/main/install.ps1 | iex
 
 ## 🚀 快速上手
 
+> 下面是**在你的 agent 里**发的命令（Cursor/Claude/Kiro 用 `/codex …`，或直接把 `codex …` 当消息发给 AI），**不是 shell 命令**。参数详解（L1–L4 深度、personas）见 [docs/commands.md](docs/commands.md)。
+
 ```text
 # 1. 测绘建书（默认 L1 架构 + 关键模块 L2；可选 --depth/--personas/--backend）
 codex map . --depth L2 --personas architect,newgrad,security,sre --lang zh
