@@ -3,6 +3,17 @@
 All notable changes to Living Codex are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); this project aims for [SemVer](https://semver.org/).
 
+## [0.3.0] - 2026-06-22
+全覆盖逐文件画像模式：一次性做完、不留下一轮。源于反馈"不想分轮，定好目标做 TODO，逐文件做画像，全覆盖"。
+
+### Added
+- **`--coverage full` 模式**（`references/file-portraits.md` + `templates/file-portrait.md`）：
+  - **MANIFEST**：枚举全部 in-scope 文件 → `docs/codebook/manifest.md`（每文件一行 TODO，排除构建产物且显式列排除规则）。
+  - **PORTRAIT**：逐文件做"画像卡"（一句话职责 / 关键符号 / 入出依赖 / 关键结论 / 风险 / 未解之谜 / confidence），聚合进 `portraits/<module>.md`。
+  - **DONE 闸门**：完成 = manifest TODO 100% 勾完（非"深度达档"）；未勾完**自动接着 grind**，续跑自动接力——**无需用户做"下一轮"决策**。
+  - AUDIT 加查覆盖率=100%；"未勾却宣布完成"= P0。
+- 诚实不变：全覆盖=每文件都有画像卡，≠ 每文件都运行验证；行为结论照样「推断」；排除清单显式列出，不许缩小分母假装全覆盖。
+
 ## [0.2.0] - 2026-06-22
 监督闭环：根治"AI 说做完就做完"。源于真实验收反馈——在 13 万文件的大型 Android 仓上，并行扇出失败→单 agent 串行只深读 7/70 模块却走到"完成"。
 

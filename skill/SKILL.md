@@ -80,6 +80,22 @@ OBJECTIVES → SCOPE → PARTITION → SURVEY → SYNTHESIZE → PRESENT → AUD
 
 ---
 
+## 2.6 覆盖模式（`--coverage focused|full`）
+
+| 模式 | 覆盖契约 | 完成定义 | 适用 |
+|---|---|---|---|
+| `focused`（默认） | objectives 覆盖矩阵：核心 L3 + 长尾 L1，长尾可留后续轮 | 必覆盖子系统达目标深度 | 快速 onboarding |
+| **`full`** | **manifest：枚举全部 in-scope 文件，逐一画像** | **manifest TODO 100% 勾完** | **一次性全覆盖、不留下一轮 / 审计 / 完整知识库** |
+
+**`full` 模式要点**（详见 `references/file-portraits.md`）：
+1. **MANIFEST**：SCOPE 排除构建产物后 `find` 全部 in-scope 源文件 → 写 `docs/codebook/manifest.md`（每文件一行 `- [ ] 路径·类别·module`，仅主 agent 写）。该总数 = "全做完"的分母。
+2. **PORTRAIT**：按 manifest **逐文件**用 `templates/file-portrait.md` 产画像（聚合进 `portraits/<module>.md`），完成一个勾一个 `[x]`；超大/生成码画不动标 `[~]`+写明原因入未解之谜（仍计已处理，不许跳过不记）。
+3. **DONE 闸门（核心）**：manifest 还有 `- [ ]` → **未完成、自动接着 grind**（resume 从第一个未勾处继续，**这是自动续跑、不是要用户决策的"下一轮"**）；**TODO 未清零禁止进 SYNTHESIZE 或宣布完成**。全勾完才 SYNTHESIZE→PRESENT→AUDIT→SIGN-OFF。
+4. 诚实不变：全覆盖=每个文件都有画像卡，**不等于**每个文件都运行验证；行为结论照样「推断」。排除清单须在 manifest 显式列出，不许缩小分母假装全覆盖。
+5. AUDIT 加查 manifest 覆盖率=100%；"未勾却宣布完成"= **P0**。
+
+---
+
 ## 3. 编排集中化铁律（不可违背）
 
 > 来源：宿主约束——子 agent 不能再生成子 agent、并行 agent 之间不可通信、并发有硬上限。
@@ -144,7 +160,7 @@ OBJECTIVES → SCOPE → PARTITION → SURVEY → SYNTHESIZE → PRESENT → AUD
 
 ## 8. 命令面（方案 A）
 
-`map`（测绘建书；**默认含 OBJECTIVES 先定目标 + AUDIT 独立审核 + SIGN-OFF 验收**） / `ask`（只读问答带引用） / `audit`（**单独对已建书派独立子 agent 跑头脑预演+红蓝对抗审核**） / `review`（轻量二次自审） / `lint`（advisory 保鲜） / `onboard`（依赖序路线）。
+`map`（测绘建书；**默认含 OBJECTIVES 先定目标 + AUDIT 独立审核 + SIGN-OFF 验收**；`--coverage focused|full`，`full`=枚举全部文件逐一画像、grind 到 manifest 100% 才算完、续跑自动接力，见 §2.6） / `ask`（只读问答带引用） / `audit`（独立子 agent 审核） / `review`（轻量自审） / `lint`（advisory 保鲜） / `onboard`（依赖序路线）。
 
 **本期无 `check`（PR 硬门禁已删）**，无 `ask --save`（避免无界增长与一致性问题）。
 

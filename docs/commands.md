@@ -62,7 +62,15 @@ codex map . --personas architect,newgrad,security,sre # 默认全套
 | `--max-agents N` | 并发只读子 agent 上限（自适应、可降级到串行） | 宿主上限（通常 ≈4–5） |
 | `--lang zh\|en\|...` | 产物语言 | 跟随当前对话 |
 | `--backend auto\|codegraph\|repomix\|none` | 可选解析器后端（见下） | auto（缺失自动降 none） |
-| `--resume` | 从 `survey-state.md` 断点续跑 | — |
+| `--coverage focused\|full` | **focused**=核心深读+长尾清单（可留后续轮）；**full**=枚举全部文件逐一画像、grind 到 manifest 100% 才算完、续跑自动接力（一次性全覆盖、不留下一轮） | focused |
+| `--resume` | 从 `survey-state.md` / `manifest.md` 断点续跑 | — |
+
+### 全覆盖模式 `--coverage full`（一次性做完，不留下一轮）
+- 先 `find` 全部 in-scope 源文件 → 写 `docs/codebook/manifest.md`（每文件一行 TODO）。
+- **逐文件做"画像"**（像给人做画像：一句话职责 / 关键符号 / 入出依赖 / 关键结论 / 风险 / 未解之谜 / confidence），完成一个勾一个。
+- **完成 = manifest 全勾完**（不是"深度达档"）；没勾完会**自动接着 grind**（续跑不是要你做决策的"下一轮"）。
+- 诚实不变：全覆盖=每个文件都有画像卡，**不等于**每个文件都运行验证；行为结论照样「推断」。
+- ⚠️ 大仓代价：~5k+ 源文件的全覆盖是**一个很长的单次任务**（按量计费会贵/慢）；manifest 是断点续跑的台账，可中断后自动接力到 100%。
 
 ### `codex ask "<question>"` — 只读问答
 基于已建的 codebook 回答，**带可信度引用**（`已确认/推断/未解之谜` + `文件::符号`）。例：`codex ask "鉴权在哪做的？"`
