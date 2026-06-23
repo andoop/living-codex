@@ -171,3 +171,52 @@ OBJECTIVES → SCOPE → PARTITION → SURVEY → SYNTHESIZE → PRESENT → AUD
 ## 9. 多宿主触发
 
 本 skill 是纯方法论 + 可选 shell 脚本，不绑死语言栈/runtime。在支持 skill/子 agent 的宿主（Claude Code / Cursor / Codex / Gemini / Kiro 等）中加载本 SKILL.md 即可；扇出能力随宿主自适应（见 §3 降级阶梯）。可选脚本为纯 shell（grep/sed），缺失即降级。
+
+
+---
+
+## 10. 业务叙事轴 · `narrate`（cartographer 的业务轴扩展）
+
+> 代码结构轴（§2–§9 的 `map`）把库做成"厚书"，但组织线是**模块/逐文件**。`narrate` 换一根主轴：**按业务组织**，由大到小、由外到里、由浅到深，产物读起来像**产品/交互文档**。
+> **不另起炉灶**：复用 `map` 的证据层（`portraits/` 作 L5）、诚实分档、编排集中化、AUDIT/SIGN-OFF 闭环。详见 `references/narrative-model.md` 等。
+
+### 10.0 诚实承诺边界（§0.5 + §0.5.1 · 不可违背 · 总所在 `references/honesty-charter.md`）
+
+本机制交付的是**尽力而为的业务"导览草稿"**：(a) 加速人建心智模型；(b) 把人带到该读的代码锚点自行验证；(c) 前置暴露不覆盖/不确定什么。**不是**业务真相权威，**不替代**读者核验。
+
+- **机械闸门（`scripts/ledger-orphans.sh` exit 0）只证三件事**：① 文件枚举完整 ② 可 grep 入口根枚举完整 ③ 可 grep 异步连边登记完整。**绝不证、绝不暗示**：业务细节已穷尽 / 因果已验证 / L3 分支已覆盖 / traced 关系为真。
+- **`exit 0` = "枚举与连边登记完整"，绝不 = "不留任何细节已达成"**；覆盖率必须冠**"枚举"**二字，不得简称"业务覆盖率"。入口/连边/状态三处分母**无机械底线 = 承认盲区**（不可 grep 部分），首页须显式点破非对称。
+- **AUDIT/SIGN-OFF 也不认证业务正确**（§0.5.1）：独立审核同模型类、读同一静态源、无运行时 oracle，**只降 variance 不降 bias**，查不出共享的系统性误读。SIGN-OFF 只认证"三类枚举机械完整 + 每条挂锚 + 盲区具名 + 未被结构性复读证伪"，**不认证业务叙事正确/完整/因果为真**。语义跳跃拿不准 → 强制降「未解之谜」。
+- **一切行为/流程/因果/顺序/连边结论最高「推断」**；「已确认」仅限符号/字符串字面存在性且经 grep 回查。
+
+### 10.1 业务轴阶段集
+
+```
+ENTRY-LEDGER + STATE-SEED → 多角色 TRACE → EDGE-LINK → RECONCILE → SYNTHESIZE → PRESENT → AUDIT ⇄ → SIGN-OFF
+```
+
+| 阶段 | 做什么 | 谁来做 | 详见 |
+|---|---|---|---|
+| **ENTRY-LEDGER + STATE-SEED** | 枚举入口（含框架权威注册表强制纳入）→ `entry-ledger.md`；追加状态/条件触发种子（第二轴）→ `state-axis` 登记 | 主 agent **单线程写** | `references/entry-ledger.md` `references/state-axis.md` |
+| **多角色 TRACE** | 同一旅程派**不同质角色**只读叶子（正常流程 / 数据·状态 / 失败·边界）独立追踪，各写草稿 + fire 端 + orphan 候选 + 可达链 | 主 agent 扇出 / 叶子只读、不共享中间结论 | `references/multi-role.md` `prompts/narrative-trace-role-*.md` |
+| **EDGE-LINK** | 机械抽取 fire 端 + 各叶子报告 → 配对 publish/subscribe、enqueue/dequeue，标断裂边 → `edge-ledger.md` | 主 agent | `references/edge-ledger.md` |
+| **RECONCILE** | reconciler（**非追踪者**）交叉调和多角色分歧；无法调和降「未解之谜」标分歧，不靠多数表决 | 主 agent / 独立子 agent | `prompts/reconcile.md` |
+| **SYNTHESIZE** | 归并成 L0–L4 洋葱 + 回填三账本（code/entry/edge）+ provenance（traced 须带可达链） | 主 agent | `references/narrative-model.md` `references/coverage-ledger.md` |
+| **PRESENT** | 产 `docs/codebook/narrative/`：L0 首页（诚实声明清单）+ journeys（L2/L3/L4 折叠 + Mermaid「非验证协议」caption）+ rules + 盲区专章；段级横幅 + 行内例外标记 | 主 agent | `templates/narrative-*.md` `references/blind-spots.md` |
+| **AUDIT** | 派**独立**子 agent（异于写书 agent）跑头脑预演 + 红蓝对抗（18 向量含断裂边漏配/dispatcher 未展开/可达链不可复现/叙事过期/含糊到无用/状态漏测/punt 占比） | 主 agent 扇出独立审核子 agent | `prompts/audit-narrative.md` |
+| **SIGN-OFF** | `ledger-orphans.sh` exit 0 + P0/P1 清零 + punt 占比可接受 + 盲区具名 → DONE；否则回相应阶段再做一轮 | 主 agent（与开发者） | `references/honesty-charter.md` |
+
+### 10.2 bootstrap 与双书一致性（A6 / B5）
+
+- **bootstrap 硬要求（A6）**：无论画像深度是否 focused，**必须先建至少文件级的 FULL manifest 作为覆盖账本真分母**；否则长尾业务会因"没画像"被误丢「未解之谜」，须显式警告"证据层 focused，长尾入未解之谜是因证据未建、非不存在"。
+- **双书双覆盖率并表（B5）**：cartographer 的"文件画像覆盖率(file-has-portrait)"与本机制"code 枚举覆盖率(file-claimed-by-node)"语义不同，首页**并表 + 口径释义**，禁混用。长尾无 portrait 文件的 L5 锚点**直链 `file:symbol`** 并标"证据层未建画像"，纳入 wikilink 有效性检查（不产生死链）。
+
+### 10.3 编排集中化 + 扇出失败不静默判完成（继承 §3）
+
+- 入口枚举 / 三账本 / 状态登记：**仅主 agent 单线程写**；TRACE 扇出只读叶子各写自己草稿。
+- **TRACE 扇出失败/降级串行时**：显著记录降级、重评覆盖目标、按入口分多轮串行覆盖或明示"本轮只覆盖 X"，缺口由 AUDIT 强制揪出——**绝不串行浅扫几条线就宣布完成**。
+- 多角色并行不可用 → 降级串行多角色（同一 agent 切显式角色 + 独立上下文轮次），**SIGN-OFF/首页须标"串行、不等同独立交叉验证"**（`references/multi-role.md`）。
+
+### 10.4 命令面补充
+
+`narrate`（业务轴测绘建书；阶段集见 §10.1） / `narrate --lint`（advisory 保鲜：反向 file→journey 索引，git diff 命中标"待复核"，无 git 降首页快照声明，见 `references/freshness-lint.md`）。

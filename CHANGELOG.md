@@ -3,6 +3,22 @@
 All notable changes to Living Codex are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); this project aims for [SemVer](https://semver.org/).
 
+## [0.7.0] - 2026-06-23
+新增**业务叙事轴 `narrate`**（与既有代码结构轴 `map` 并列、共享同一证据层与诚实纪律）。源于反馈"逐文件画像太散、不成业务；要按业务由大到小由外到里由浅到深剥洋葱、像产品文档"。经 8 轮头脑预演 + 5 轮红蓝对抗收敛（详见 `docs/sandtable/features/2026-06-23-business-narrative-codex/`）。
+
+### Added
+- **`narrate` 命令 + 业务轴阶段集**（SKILL.md §10）：ENTRY-LEDGER + STATE-SEED → 多角色 TRACE → EDGE-LINK → RECONCILE → SYNTHESIZE → PRESENT → AUDIT → SIGN-OFF；产物 `docs/codebook/narrative/` 分层洋葱 L0 产品全景→L5 代码锚点。
+- **references**：`narrative-model`（L0–L5 洋葱）/`entry-ledger`（入口枚举+框架权威注册表强制纳入）/`narrative-tracing`（入口驱动追踪+双向汇合）/`coverage-ledger`（code+entry+edge 三账本+provenance 可达链）/`edge-ledger`（异步/派发连边配对+断裂边）/`freshness-lint`（叙事保鲜 file→journey 反向索引）/`usefulness-floor`（置信度 vs 具体度+punt 封顶）/`state-axis`（状态/横切第二遍历轴）/`blind-spots`（盲区具名专章）/`multi-role`（多角色交叉验证）/`honesty-charter`（诚实宪章+机械闸门 vs AUDIT 对照表）。
+- **templates**：`narrative-L0-product`/`narrative-journey`/`narrative-rule`/`coverage-ledger`/`entry-ledger`/`edge-ledger`。
+- **prompts**：`narrative-trace-role-{normal,state,failure}`（多不同质角色）/`reconcile`（调和者）/`audit-narrative`（独立审核 18 攻击向量）。
+- **scripts/ledger-orphans.sh**：四类自推导 count-gate（code/entry/edge/state），分母≠独立计数则 exit≠0，grep 缺失显式降级。
+- **`narrate --lint`**：基于 file→journey 反向索引的 advisory 保鲜，git diff 命中标"待复核"，无 git 降首页快照声明。
+
+### 诚实纪律（核心 · §0.5/§0.5.1）
+- 机械闸门**只证"可 grep 范围内三类枚举完整"**（文件/入口根/连边），`exit 0` **绝不暗示**业务细节/因果/分支已尽。
+- AUDIT/SIGN-OFF **不认证业务正确**（同模型类、无运行时 oracle、独立审核只降 variance 不降 bias）；多角色交叉降相关性偏差但不消除、串行降级须披露"不等同独立交叉验证"。
+- 交付物定位 = **尽力而为的业务导览草稿**（加速理解 + 带到代码 + 前置具名盲区），不承诺"零遗漏/已验证正确"。
+
 ## [0.6.0] - 2026-06-22
 manifest 审阅与返工 + 默认排隐藏目录 + 可"只要原始代码"。源于反馈"看到 manifest 后还想再删，比如编译产出/`.`开头目录/只看原始代码"。
 

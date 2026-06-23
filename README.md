@@ -91,9 +91,26 @@ codex lint --since HEAD~20
 
 # 5. 新人依赖序路线
 codex onboard --persona newgrad --horizon week1
+
+# 6. 业务叙事测绘（v0.7.0+，业务轴）：按业务旅程剥洋葱 L0→L5，读起来像产品/交互文档
+codex narrate .                       # 入口驱动梳理全项目业务旅程
+codex narrate --journey 工程下载       # 只剥一条指定业务旅程
+codex narrate --lint                  # advisory 保鲜：git diff 命中→标消费它的 journey "待复核"
 ```
 
 产物落在目标项目的 `docs/codebook/`：`README.md`(TOC+档位+图例) + 分章 + `99-未解之谜.md` + `personas/` + Mermaid 图。用 Obsidian 打开即得图谱视图。
+
+## 🧭 两根轴：`map`（代码结构） / `narrate`（业务叙事）
+
+Living Codex 有两根并列、**共享同一证据层与诚实纪律**的测绘轴：
+
+| | `codex map` | `codex narrate`（v0.7.0+） |
+|--|--|--|
+| 组织线 | 维度/模块/逐文件——做成代码"厚书" | **按业务旅程**剥洋葱：L0 产品全景→L1 能力域→L2 旅程→L3 场景规则→L4 机制→L5 代码锚点 |
+| 读起来像 | 代码百科 | **产品/交互文档**（场景语言 + 流程/状态/时序图 + 渐进展开） |
+| 适合 | 全面理解架构与各模块 | 顺一条业务"由外到里、由浅到深"彻底搞懂 |
+
+> **`narrate` 诚实承诺边界**：机械闸门（`ledger-orphans.sh` 的 code/entry/edge/state 四类 count-gate）**只证"可 grep 范围内枚举完整"**，`exit 0` **绝不等于**"业务逻辑零遗漏/已验证正确"；AUDIT 与 SIGN-OFF 同样**不认证业务正确**（无运行时 oracle、独立审核只降 variance 不降 bias）。产物是**尽力而为的业务导览草稿**：加速理解 + 带你到代码 + **前置具名它没覆盖什么**。业务正确性仍需你对着代码锚点自行核实。详见 [docs/commands.md](docs/commands.md) 与 `skill/references/honesty-charter.md`。
 
 ## ⚙️ 原理
 
