@@ -71,6 +71,23 @@
 
 Living Codex 就是一份 `SKILL.md`，复制进你的 agent 即可。
 
+### 🤖 让 AI 帮你装（复制下面这段，发给你自己的 AI）
+
+懒人首选：把下面整段**原样复制**，粘贴给你正在用的 AI（Claude Code / Cursor / Kiro / Codex），它会自动帮你装好。
+
+```text
+帮我安装 Living Codex 业务叙事 skill。
+优先执行这条命令（会自动识别我用的是 Claude Code / Cursor / Codex / Kiro）：
+curl -fsSL https://raw.githubusercontent.com/andoop/living-codex/main/install.sh | bash
+如果你没法执行 shell，就改用 git 克隆 https://github.com/andoop/living-codex ，
+把里面的整个 skill/ 目录复制到本项目对应的 skill 目录，目录名用 narrator、结构保持不变：
+  Kiro → .kiro/skills/narrator/    Claude → .claude/skills/narrator/
+  Cursor → .cursor/skills/narrator/    Codex → .agents/skills/narrator/
+装完后提醒我重启 agent，并告诉我可以发 `narrate --journey <一条业务旅程>` 试跑。
+```
+
+### ⌨️ 自己装（命令行）
+
 ```bash
 # 一键安装（自动探测 Claude Code / Cursor / Codex / Kiro）
 curl -fsSL https://raw.githubusercontent.com/andoop/living-codex/main/install.sh | bash

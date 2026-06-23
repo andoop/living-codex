@@ -6,7 +6,17 @@
 ---
 
 ## 安装（可移植，即装即用）
-把整个 `narrator/` 目录复制进目标项目（或宿主 skill 目录）即可：
+
+最省事：把下面这段发给你自己的 AI，它会自动装好——
+```text
+帮我安装 Living Codex 业务叙事 skill：优先执行
+curl -fsSL https://raw.githubusercontent.com/andoop/living-codex/main/install.sh | bash
+不能跑 shell 就 git 克隆 https://github.com/andoop/living-codex ，把 skill/ 整个目录
+复制到本项目的 skill 目录（Kiro: .kiro/skills/narrator/，Claude/Cursor/Codex 类推），结构不变。
+装完提醒我重启 agent，并告诉我可发 `narrate --journey <一条旅程>` 试跑。
+```
+
+或手动：把整个 `narrator/` 目录复制进目标项目（或宿主 skill 目录）即可：
 ```
 narrator/
 ├── SKILL.md            # 主方法论（先读这个）
