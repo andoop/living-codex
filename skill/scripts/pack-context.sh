@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# pack-context.sh — 可选：用 repomix 打包 territory 文件给叶子 agent（活典 Living Codex）
+# pack-context.sh — 可选：用 repomix 打包一组文件给叶子 agent（活典 Living Codex）
 #
-# 用途：把一个 territory 的文件清单打包成单文件上下文，便于只读叶子 agent 读取。
+# 用途：把一组文件的清单打包成单文件上下文，便于只读叶子 agent 读取。
 #       【可选增强：缺 repomix 时退出 0 降级】——主 agent 改为按文件清单逐个读取，结构不缺失。
 #
 # 退出码：0 = 成功 或 优雅降级（无 repomix）；2 = 用法错误。

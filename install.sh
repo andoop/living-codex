@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Living Codex installer — copies the cartographer skill into your AI agent.
+# Living Codex installer — copies the narrator skill into your AI agent.
 # Works two ways:
 #   • piped:  curl -fsSL .../install.sh | bash            (downloads the skill)
 #             curl -fsSL .../install.sh | bash -s kiro    (force a platform)
@@ -9,7 +9,7 @@
 set -euo pipefail
 
 REPO_URL="https://github.com/andoop/living-codex.git"
-SKILL_NAME="cartographer"
+SKILL_NAME="narrator"
 PROJECT_ROOT="${LIVING_CODEX_TARGET:-$PWD}"
 
 log() { printf '[living-codex] %s\n' "$*"; }
@@ -89,9 +89,10 @@ if [ "$UNINSTALL" -eq 0 ]; then
   cat <<'EOF'
 
 [living-codex] Done. Restart your agent, then in the agent run:
-    codex map . --depth L2 --personas architect,newgrad,security,sre
-Output → <project>/docs/codebook/  (Obsidian-compatible)
-Commands & depth levels → https://github.com/andoop/living-codex/blob/main/docs/commands.md
-Honesty model           → https://github.com/andoop/living-codex/blob/main/docs/honesty.md
+    narrate --journey <一条业务旅程>     # 首次推荐：先剥一条跑通
+    narrate .                            # 再铺全项目业务旅程
+Output → <project>/docs/codebook/narrative/  (Obsidian-compatible)
+Commands → https://github.com/andoop/living-codex/blob/main/docs/commands.md
+Honesty model → https://github.com/andoop/living-codex/blob/main/docs/honesty.md
 EOF
 fi

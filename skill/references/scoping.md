@@ -39,13 +39,13 @@
 `.codebookignore` 是决定"全覆盖分母"的契约，**它本身必须被独立审核**，不能主 agent 一人说了算：
 - **头脑预演子 agent（覆盖闭环）**：审"**该进的有没有被错误排除**"——逐条 ignore 规则核对，有没有把项目自有源码、关键配置误排掉；范围是否逻辑自洽。
 - **红蓝对抗子 agent（攻击这份范围）**：攻 ①有没有把**真源码偷偷排掉**（漏测伪装成"忽略"）②有没有把**垃圾/第三方算进来**虚高分母 ③有没有靠**扩大忽略缩小分母**假装"全覆盖"④非代码资源排除是否有客观依据。每条给可复现证据 + P0–P3。
-- 发现问题 → 主 agent 修 `.codebookignore` → 再审，直到 P0/P1 清零。审核报告落 `docs/codebook/audit/scope-audit-<n>.md`。
+- 发现问题 → 主 agent 修 `.codebookignore` → 再审，直到 P0/P1 清零。审核报告落 `docs/codebook/narrative/audit/scope-audit-<n>.md`。
 
 ## 第 3.6 步：ignore 初审（范围草案）
 - 经推演+对抗、P0/P1 清零后，得到 `.codebookignore` 草案 + 范围摘要。可继续建**草案 manifest**（第 4 步）让开发者看真实清单——**真正的硬门禁在第 4.6 步（审批 manifest）**，绘制前必须过。
 
 ## 第 4 步：建**草案** manifest
-范围初定后，应用 `.codebookignore` 用 `find` 列 in-scope 文件 → 写 `docs/codebook/manifest.md`（**草案**，每文件一行 `- [ ]`）。同时输出**构成摘要**（总数、按语言/按顶层目录分布）给开发者看。
+范围初定后，应用 `.codebookignore` 用 `find` 列 in-scope 文件 → 写 `docs/codebook/narrative/manifest.md`（**草案**，每文件一行 `- [ ]`）。同时输出**构成摘要**（总数、按语言/按顶层目录分布）给开发者看。
 
 ## 第 4.5 步：manifest 审阅与返工（可迭代，关键）
 > 开发者**看到真实文件清单后**常会想再删（这正是本步存在的理由）。

@@ -1,7 +1,7 @@
 # LLM Wiki · 代码厚书（活典 Living Codex）
 
 > 自动生成的 onboarding 草稿。**非运行验证的真相**。请配合源码阅读。
-> 生成方法：活典 cartographer skill，串行单 agent 测绘（宿主无并行子 agent → 按 skill §3 降级阶梯退化为串行逐 territory）。
+> 生成方法：活典 Living Codex（早期代码结构轴样例，串行单 agent 测绘）。保留用于直观感受**诚实三档分档**在产物里的样子；当前版本已收敛为业务叙事轴 `narrate`（见仓库 README）。
 
 ## 当前档位
 - **backend**：`none`（纯模式）

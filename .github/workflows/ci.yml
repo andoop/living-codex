@@ -20,7 +20,9 @@ jobs:
         run: |
           set -e
           for f in skill/SKILL.md skill/references/provenance.md skill/references/orchestration.md \
-                   skill/references/self-review.md skill/scripts/verify-citations.sh LICENSE README.md; do
+                   skill/references/honesty-charter.md skill/references/narrative-model.md \
+                   skill/references/narrative-book-spec.md skill/scripts/verify-citations.sh \
+                   skill/scripts/ledger-orphans.sh LICENSE README.md; do
             test -f "$f" && echo "ok $f" || { echo "MISSING $f"; exit 1; }
           done
 

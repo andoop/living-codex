@@ -1,7 +1,7 @@
 # references/narrative-model.md — 分层洋葱模型 L0–L5（业务轴）
 
 > 落实 SKILL.md `narrate` 命令的呈现形态。对应 PRD FR5/FR6/§4，验证 TC1/TC6。
-> 本机制是 cartographer 的**业务轴扩展**：复用其证据层（`portraits/`）作 L5，不另起炉灶。
+> 本机制复用**逐文件画像**作为 L5 证据叶子（见 `references/file-portraits.md`），不另起炉灶。
 > 一切层级里的**行为/因果/顺序/连边结论最高「推断」**（见 `honesty-charter.md`）。
 
 ---
@@ -17,7 +17,7 @@
 | **L2** | 用户旅程 / 业务流程 | 端到端走一遍："用户做 X → 系统做 Y → 得到 Z" | 分支穷举、行号、私有方法实现 | `journeys/<journey>.md`（L2 段） | 行为结论「推断」 |
 | **L3** | 场景与规则 | 每条流程展开的分支/条件/边界/异常/业务规则——**细节主体在此层** | 逐行代码、与业务无关的工具调用 | `journeys/<journey>.md`（L3 折叠）+ `rules/` | 「推断」+ 决策级具体度（见 `usefulness-floor.md`） |
 | **L4** | 机制实现 | 状态机、数据模型、关键算法、时序 | 完整源码贴片 | `journeys/<journey>.md`（L4 折叠） | 「推断」；Mermaid 带「非验证协议」caption |
-| **L5** | 代码锚点 | 链到 `文件:符号` + cartographer 逐文件画像（证据叶子） | —（这是叶子，往下就是代码本身） | 互链 `portraits/` 或直链 `file:symbol` | 字面存在性可「已确认」、调用关系「推断」 |
+| **L5** | 代码锚点 | 链到 `文件:符号` + 逐文件画像（证据叶子） | —（这是叶子，往下就是代码本身） | 互链 `portraits/` 或直链 `file:symbol` | 字面存在性可「已确认」、调用关系「推断」 |
 
 ---
 
@@ -44,7 +44,7 @@
 
 ---
 
-## 逐节 confidence 图例（继承 cartographer）
+## 逐节 confidence 图例（三档纪律，见 `provenance.md`）
 
 每个 journey/rule 文件**逐节首**放图例（见 `templates/narrative-journey.md` / `narrative-rule.md`）：
 > `已确认` = 仅字面存在性、已 grep 核验，**非语义/运行验证**；`推断` = 未经运行验证的判断（**所有行为/连边/因果结论上限**）；`未解之谜` = 需运行或未读到。

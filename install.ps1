@@ -7,7 +7,7 @@ param(
 )
 $ErrorActionPreference = "Stop"
 $RepoUrl   = "https://github.com/andoop/living-codex.git"
-$SkillName = "cartographer"
+$SkillName = "narrator"
 $ProjectRoot = if ($env:LIVING_CODEX_TARGET) { $env:LIVING_CODEX_TARGET } else { (Get-Location).Path }
 
 # Locate skill: local copy next to script, else download repo.
@@ -57,7 +57,7 @@ try {
       Write-Host "[living-codex] installed -> $d"
     }
   }
-  if (-not $Uninstall) { Write-Host "`n[living-codex] Done. Restart your agent, then: codex map . --depth L2" }
+  if (-not $Uninstall) { Write-Host "`n[living-codex] Done. Restart your agent, then: narrate --journey <一条旅程>  (or: narrate .)  Output -> docs/codebook/narrative/" }
 } finally {
   if ($cleanup -and (Test-Path $cleanup)) { Remove-Item -Recurse -Force $cleanup }
 }

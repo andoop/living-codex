@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # scrub-secrets.sh — 中间产物/厚书的密钥·PII 体检（活典 Living Codex）
 #
-# 用途：扫描 docs/codebook/ 与 territory-report-*.md / log.md，找出疑似密钥/token/PII 原文。
-#       【零运行时下这是尽力而非保证】(见 prd MUST NOT / book-spec.md)。
+# 用途：扫描 docs/codebook/ 与 narrative/ 草稿 / log.md，找出疑似密钥/token/PII 原文。
+#       【零运行时下这是尽力而非保证】(见 references/honesty-charter.md)。
 #       本脚本只【报告】疑似命中，不自动改写（避免误删）。
 #
 # 退出码：0 = 未发现疑似；1 = 发现疑似（人工处理）；2 = 用法错误。

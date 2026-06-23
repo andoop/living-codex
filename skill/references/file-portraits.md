@@ -5,19 +5,19 @@
 ## 与 focused 模式的区别
 | | `--coverage focused`（默认） | `--coverage full`（本规范） |
 |---|---|---|
-| 覆盖契约 | objectives 覆盖矩阵（核心 L3 + 长尾 L1，长尾留后续轮） | **manifest：全部 in-scope 文件逐一画像** |
-| 完成定义 | 必覆盖子系统达目标深度 | **manifest TODO 100% 勾完** |
+| 覆盖契约 | 覆盖目标（核心旅程深读 + 长尾清单，长尾留后续轮） | **manifest：全部 in-scope 文件逐一画像** |
+| 完成定义 | 必覆盖旅程/子系统达目标深度 | **manifest TODO 100% 勾完** |
 | 续跑语义 | 可能需新一轮判断 | **自动接着 grind，无需人做"下一轮"决策** |
-| 适用 | 快速 onboarding / 只关心核心 | 要全仓不漏 / 审计 / 完整知识库 |
+| 适用 | 快速 onboarding / 只关心核心旅程 | 要全仓不漏 / 审计 / 完整知识库 |
 
-## 阶段（在七阶段里如何落地）
+## 在业务叙事流程里如何落地
 
-### MANIFEST（PARTITION 的全覆盖形态）
-1. SCOPE 排除构建产物/依赖（`.class/.jar/.flat/.png/.kapt_metadata/node_modules/build/dist/.git` 等）后，`find` 全部 **in-scope 源文件**（按 dimensions 的文件类别：code/config/docs/infra/data/script/markup）。
-2. 写 `docs/codebook/manifest.md`：**每文件一行** `- [ ] <相对路径> · <类别> · <所属 territory/module>`。这是**覆盖契约与 TODO 台账**（仅主 agent 写）。
-3. 写明统计：in-scope 文件总数、各类别数、排除规则。**这个总数就是"全做完"的分母。**
+### MANIFEST（BOOTSTRAP 的全覆盖形态）
+1. SCOPE 排除构建产物/依赖（`.class/.jar/.flat/.png/.kapt_metadata/node_modules/build/dist/.git` 等）后，`find` 全部 **in-scope 源文件**（按文件类别：code/config/test/docs/infra/data/script/markup）。
+2. 写 `docs/codebook/narrative/manifest.md`：**每文件一行** `- [ ] <相对路径> · <类别> · <所属 module>`。这是**覆盖契约与 TODO 台账**（仅主 agent 写）。
+3. 写明统计：in-scope 文件总数、各类别数、排除规则。**这个总数就是 coverage-ledger 的 code 分母。**
 
-### PORTRAIT（SURVEY 的逐文件形态）
+### PORTRAIT（画像 grind 形态）
 按 manifest **逐文件**产出画像（用 `templates/file-portrait.md`），完成一个就把该行 `- [ ]`→`- [x]`。
 - 画像写到对应 **module 画像文件** `portraits/<module>.md`（同 module 文件聚合成一章，避免文件爆炸），或大文件单独成页。
 - **只读该文件 + 必要邻居**；关键导出符号标「已确认」前**必须 grep 回查**（`verify-citations.sh`）。
@@ -35,7 +35,7 @@
 
 ## 强制遵守（机械闸门，不靠 AI 自觉）
 纯提示词无法 100% 强制 LLM。本模式靠**确定性脚本 + 编排循环**强制全覆盖：
-- `scripts/coverage-check.sh docs/codebook/manifest.md` 数未勾项；**只有剩 0 才 exit 0**。
+- `scripts/coverage-check.sh docs/codebook/narrative/manifest.md` 数未勾项；**只有剩 0 才 exit 0**。
 - **DONE 由该脚本的 exit 0 决定，不由 AI 自称**。编排方（主 agent / 宿主循环）：`while coverage-check.sh 返回非0：再派 writer 接着 grind`。AI 说"做完了"但脚本 exit 1 → **不算完，继续派**。
 - 因此 writer **无权**缩范围或提前收工：范围 = manifest 全集（排除规则已固化在 manifest 顶部），完成 = 脚本判定的 0 未勾。
 - 续跑天然成立：manifest 是磁盘台账，循环中断后再起，coverage-check 仍从真实剩余数继续逼近 0。

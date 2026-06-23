@@ -3,6 +3,26 @@
 All notable changes to Living Codex are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); this project aims for [SemVer](https://semver.org/).
 
+## [0.8.0] - 2026-06-23
+**收敛为只做业务叙事**：移除代码结构轴 `map`，skill 改名 `cartographer → narrator`，`narrate` 成为唯一主干。源于反馈"只想要业务叙事，并且要更完善好用"。
+
+### Changed（破坏性）
+- **改名**：skill `cartographer` → `narrator`；安装目标 `.kiro/skills/narrator/`（claude/cursor 同步）；Codex CLI 触发改 `$narrator`。
+- **命令面收敛**：只保留 `narrate [path]` / `--journey` / `--resume` / `--audit` / `--lint`；移除 `map / ask / review / audit / lint / onboard` 的 map 语义与 `--depth/--personas/--coverage` map 参数。
+- **SKILL.md 重写**：`narrate` 从原 §10 附录提升为全篇主干；frontmatter `description` 改为业务叙事话术（修复 Kiro 默认 agent 因描述偏 map 而难以自动联想/触发的问题）。
+- 产物目录统一 `docs/codebook/narrative/`。
+
+### Removed
+- references：`dimensions / book-spec / presentations / personas / objectives / self-review / lint-and-resume`。
+- prompts：`subagent-survey / self-review / audit-mental / audit-redteam`。
+- templates：`territory-report / survey-state / codebook-README / chapter`。
+
+### Added（更完善好用）
+- **`references/narrative-book-spec.md`**：业务导览书产物规范——目录布局、`[[wikilink]]` 互链约定、Obsidian 兼容、L0 首页索引中枢、**按业务旅程的 onboarding 顺序**、PRESENT 末尾一致性自检。
+- **L0 首页模板增强**（`templates/narrative-L0-product.md`）：新增"上手顺序"段（按旅程、按证据排、标明非覆盖承诺）。
+- **`--resume` 断点续跑**与 **`--journey` 切小重任务**写入 SKILL.md/命令文档，缓解"`narrate .` 跑很久像卡住"的体感。
+- 保留件交叉引用全部 retarget 到 narrate 语义（`orchestration`/`supervision` 重写、`provenance`/`file-portraits`/`scoping` 等去 map 措辞），消除死链。
+
 ## [0.7.0] - 2026-06-23
 新增**业务叙事轴 `narrate`**（与既有代码结构轴 `map` 并列、共享同一证据层与诚实纪律）。源于反馈"逐文件画像太散、不成业务；要按业务由大到小由外到里由浅到深剥洋葱、像产品文档"。经 8 轮头脑预演 + 5 轮红蓝对抗收敛（详见 `docs/sandtable/features/2026-06-23-business-narrative-codex/`）。
 

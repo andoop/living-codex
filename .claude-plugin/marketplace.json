@@ -1,16 +1,16 @@
 {
   "name": "living-codex",
   "version": "0.1.0",
-  "description": "Living Codex — the most honest code-comprehension skill. Maps any codebase into a traceable, confidence-graded book; never fakes verification.",
+  "description": "Living Codex — the most honest business-narrative skill. Reads any codebase into a traceable, confidence-graded business guidebook (L0 product → L5 code anchors); never fakes verification.",
   "license": "MIT",
   "homepage": "https://github.com/andoop/living-codex",
   "plugins": [
     {
-      "name": "cartographer",
-      "description": "Honest, portable codebase comprehension. Multi-subagent survey -> traceable Markdown codebook (Obsidian-compatible) with 已确认/推断/未解之谜 confidence tiers.",
+      "name": "narrator",
+      "description": "Honest, portable business-narrative comprehension. Entry-driven multi-role tracing -> a traceable, journey-organized Markdown guidebook (Obsidian-compatible) with 已确认/推断/未解之谜 confidence tiers.",
       "source": { "path": "./skill" },
       "category": "Developer Tools",
-      "keywords": ["codebase", "onboarding", "documentation", "knowledge-graph", "honest", "sandtable"]
+      "keywords": ["codebase", "business-narrative", "onboarding", "documentation", "knowledge-graph", "honest", "sandtable"]
     }
   ]
 }

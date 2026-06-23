@@ -1,6 +1,6 @@
 # references/provenance.md — 诚实 provenance（核心 · v2.1 收紧）
 
-> 落实 SKILL.md §4/§5。对应 FR5/FR8，验证 TC2/TC7。**本文件是全 skill 最高红线所在。**
+> 落实 SKILL.md 诚实红线（confidence 三档 / 行为性结论封顶）。对应 FR5/FR8。**本文件是全 skill 最高红线所在。**
 
 ---
 
@@ -52,7 +52,7 @@
 
 ## confidence 图例逐章首（FR8）
 
-每章开头**必须**放出图例（见 `templates/chapter.md`），含释义：
+每个 journey/rule 文件**逐节首**必须放出图例（见 `templates/narrative-journey.md` / `templates/narrative-rule.md`），含释义：
 > `已确认` = 仅字面存在性、已 grep 核验，**非语义/运行验证**；`推断` = 未经运行验证的判断；`未解之谜` = 需运行或未读到。
 
 免责不止书首页一处——避免局部「已确认」图章盖过全局声明。

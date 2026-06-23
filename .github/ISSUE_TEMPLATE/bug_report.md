@@ -16,7 +16,7 @@ labels: bug
 
 ## 复现
 - 目标项目 / 规模：
-- 命令（含参数 `--depth/--backend/...`）：
+- 命令（含参数 `--journey/--backend/...`）：
 - 宿主 agent（Claude/Cursor/Codex/Kiro）：
 
 ## 证据

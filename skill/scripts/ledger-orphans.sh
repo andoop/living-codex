@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ledger-orphans.sh — 业务叙事三账本 + 状态轴的【确定性自推导机械闸门】
 #
-# 镜像 cartographer 的 coverage-check.sh：AI 无权自称"枚举完整"；由本脚本自推导分母、
+# 镜像 coverage-check.sh 的纪律：AI 无权自称"枚举完整"；由本脚本自推导分母、
 # 与账本声明数比对，不一致即 exit≠0。DONE 由本脚本 exit 0 决定，非 AI 自称。
 #
 # 【它只证三类「可 grep 范围内」枚举完整】（见 references/honesty-charter.md 第二条）：
