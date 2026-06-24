@@ -1,5 +1,14 @@
+---
+type: portrait
+title: "{{module}} 画像"
+description: "{{module}} 下各文件的证据层画像（below the line）"
+tags: ["证据层", "{{module}}"]
+timestamp: "{{YYYY-MM-DD}}"
+---
+
 # 模板 · 文件画像卡（file portrait）
 
+> **证据层（below the line）**：本页是给核验者看的技术证据，**不是面向小白的线上正文**——这里保留代码术语/符号是正常的。
 > 像给人做画像：一眼看清这个文件"是谁、干嘛、跟谁来往、有什么坑、哪些能信"。
 > 每个 in-scope 文件一张卡，聚合进所属 module 的 `portraits/<module>.md`。
 

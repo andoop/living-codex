@@ -6,6 +6,8 @@
 
 落 `docs/codebook/narrative/coverage-ledger.md`（模板见 `templates/coverage-ledger.md`）。
 
+> **OKF frontmatter（M4）**：三账本 + state-ledger + manifest 均带 `type: ledger` frontmatter，**置于 `*_CLAIMED:` 锚点行之上**——`ledger-orphans.sh` 行首锚定 grep 不受影响（实测通过）。账本不是线上白话面，frontmatter `title`/`description` 用描述性命名即可（证据层从宽，见 `plain-language.md` §5）。
+
 ---
 
 ## 三账本结构

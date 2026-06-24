@@ -1,3 +1,13 @@
+---
+type: ledger
+title: "连边账本"
+description: "证据层 · 异步/派发边 fire 端配对账本"
+tags: ["证据层", "账本", "连边"]
+timestamp: "{{YYYY-MM-DD}}"
+---
+
+<!-- frontmatter 置于 EDGE_FIRE_CLAIMED: 锚点行之上；行首锚定 grep 不受影响 -->
+
 # 连边账本 · {{项目}}（FR10）
 
 > 见 `references/edge-ledger.md`。业务旅程 = 节点 + **边**。

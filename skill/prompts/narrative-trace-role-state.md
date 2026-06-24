@@ -24,5 +24,6 @@
 - 不可 grep 的状态触发 = 承认盲区，显式标。
 
 ## 产出（按 templates/narrative-rule.md + journey 状态段）
+> **你的草稿 = 线下证据层**，可保留技术性；白话化由 SYNTHESIZE/PRESENT 按 `plain-language.md` 施加、按 `narrative-book-spec.md` 编号绑定。你**不**负责白话化。
 状态·横切规则草稿 + 锚点 + orphan 候选 + 挂接方式 + 可达链 + **状态轴盲区清单**。
 完成只回：草稿路径 + 摘要（覆盖哪些状态触发、机械可抽取 vs 盲区、有无未解之谜）。

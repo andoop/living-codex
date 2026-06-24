@@ -1,3 +1,13 @@
+---
+type: ledger
+title: "入口账本"
+description: "证据层 · 框架注册表入口候选枚举账本"
+tags: ["证据层", "账本", "入口"]
+timestamp: "{{YYYY-MM-DD}}"
+---
+
+<!-- frontmatter 置于 ENTRY_CAND_CLAIMED: 锚点行之上；行首锚定 grep 不受影响 -->
+
 # 入口账本 · {{项目}}
 
 > 见 `references/entry-ledger.md`。入口**字面存在性**可「已确认」（grep 核验）；**归类「推断」**。

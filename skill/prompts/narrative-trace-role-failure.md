@@ -25,5 +25,6 @@
 - 你独立得出的异常路径若与"正常流程"角色对同一步骤的描述**冲突**，**照实写进草稿的"疑似分歧"节**，**不要自行调和**（调和是 reconciler 的职责）。
 
 ## 产出（按 templates/narrative-journey.md L3 异常段 + narrative-rule.md）
+> **你的草稿 = 线下证据层**，可保留技术性；白话化由 SYNTHESIZE/PRESENT 按 `plain-language.md` 施加、按 `narrative-book-spec.md` 编号绑定。你**不**负责白话化。
 异常/边界规则草稿 + 锚点 + orphan 候选 + 挂接方式 + 可达链 + **疑似分歧清单**。
 完成只回：草稿路径 + 摘要（覆盖哪些异常分支、有无 fire 端待配对、疑似分歧、未解之谜）。
