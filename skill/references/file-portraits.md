@@ -1,6 +1,7 @@
 # 全覆盖逐文件画像模式 · file-portraits（`--coverage full`）
 
 > 为「一次性做完、全覆盖、不留下一轮」设计。把覆盖从"深度档 + 长尾留后"换成**"枚举全部 in-scope 文件 → TODO 清单 → 逐文件画像 → grind 到 100%"**。**完成 = TODO 清零**，不是"深度达档"。
+> **画像 = 线下证据层（below the line）**：模板 `templates/file-portrait.md` 带 `type: portrait` frontmatter，保留代码术语正常，不受"线上去术语"约束（见 `plain-language.md` §1/§5）；其结论被线上 journey/rule 引用时由 SYNTHESIZE/PRESENT 白话化。
 
 ## 与 focused 模式的区别
 | | `--coverage focused`（默认） | `--coverage full`（本规范） |

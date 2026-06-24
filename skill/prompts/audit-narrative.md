@@ -35,6 +35,13 @@
 16. **多角色/串行戳记造假**：串行降级是否被盖了与并行同款"独立交叉"戳记；分歧是否靠多数表决假装定论。
 17. **机械闸门冒充业务权威**：首页/标题是否把 `exit 0` 暗示成"业务覆盖/不留细节已达成"；覆盖率是否冠"枚举"二字。
 18. **密钥/PII**：grep 产物与中间产物有无密钥/token/PII 原文。
+19. **术语泄漏**：抽 N 段**线上正文**及**全部机读 frontmatter 字段**（`title`/`description`/`tags`/自定义键）扫术语黑名单（框架名/类型名/函数名/库名未解释出现）。**证据层 concept（`type: portrait`/`ledger`）的 frontmatter 从宽**（按 P2/P3 记，不 gating）；线上正文不豁免。
+20. **小白可读性**：核心旅程 L2 主干能否被**非本项目工程师**复述"做什么/得到什么"；读不出 = 白话化未达标。
+21. **frontmatter 齐备/合法**：每 concept 有合法 YAML + `type`（取值在集合内）；`index.md`/`log.md` **无** frontmatter。
+22. **gap 显式**：每旅程/规则/首页是否有"还不知道什么"小节（映射未解之谜）。
+23. **frontmatter 过度声明（M9）**：**全部机读字段**（含证据层）是否含未标记的行为/连边/因果结论，或行为结论标签（如 `tags:[自动重试]`）、纯术语标签（如 `tags:[LanceDB]`）。此项对所有字段**一律不豁免**。
+24. **诚实信号默认可见（M10）**：`honesty-charter` 第五条**全部信号行**（草稿/枚举/闸门不证业务/AUDIT 不认证/**非对称盲区/串行"不等同独立交叉验证"**/快照过期/punt 占比）是否默认首屏可见，还是被**整体或部分**塞进默认折叠 `<details>`；章首白话声明与 `已确认`/`未解之谜` 例外是否被折叠隐藏。
+25. **闸门 token 污染（R1 advisory）**：narrative 文档（尤其 `glossary.md`）是否写了裸闸门 token（`WorkManager`/`enqueue(`/`sendBroadcast(`/`checkSelfPermission(`/大写 `TTL`·`TIMEOUT`·`EXPIR`/`isEnabled(`）致 `ledger-orphans.sh` 的 entry/edge/state derived 虚高（见 `plain-language.md` §3.1）。
 
 ## 诚实边界（自我约束 · honesty-charter 第三条）
 你只能查**形式/结构/枚举类错误**；**查不出业务理解错误**（你与作者共享同一静态源、无运行时 oracle，可能共享同一误读）。**不得**在战报里声称"业务叙事已验证正确"。

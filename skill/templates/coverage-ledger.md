@@ -1,3 +1,13 @@
+---
+type: ledger
+title: "业务覆盖账本（三账本）"
+description: "证据层 · 文件/入口/连边的枚举覆盖账本"
+tags: ["证据层", "账本"]
+timestamp: "{{YYYY-MM-DD}}"
+---
+
+<!-- frontmatter 置于 CODE_DENOM_CLAIMED: 等锚点行之上；ledger-orphans.sh 行首锚定 grep 不受影响（实测通过） -->
+
 # 业务覆盖账本 · {{项目}}（三账本）
 
 > 见 `references/coverage-ledger.md` / `references/honesty-charter.md`。

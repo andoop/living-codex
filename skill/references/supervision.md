@@ -11,7 +11,7 @@
 主 agent 扇出**独立审核子 agent**（**必须与写书 agent 不同上下文**；宿主无并行则串行依次起独立 agent / 子进程，**不得**用写书上下文自审顶替）。攻击向量与交付见 `prompts/audit-narrative.md`，核心包括：
 
 - **头脑预演（覆盖 / 逻辑闭环）**：三账本（code/entry/edge）是否齐全、orphan 是否透明；旅程能否 L0→L5 读通、层间一致；"部分覆盖/未解之谜"是否如实标注。
-- **红蓝对抗（18 向量）**：过度声明（行为标已确认）/ 编造失效引用（跑 `verify-citations.sh`）/ 孤儿业务节点 / 入口漏枚举 / 分母缩小 / orphan 漏报 / 断裂边漏配 / dispatcher 未展开 / traced 可达链不可复现 / 叙事过期未标 / 含糊到无用 / 状态轴漏测 / punt 占比过高 / 覆盖率粉饰盲区 / 串行戳记造假 / 机械闸门冒充业务权威 / 密钥 PII 泄漏。
+- **红蓝对抗（18+6 向量）**：过度声明（行为标已确认）/ 编造失效引用（跑 `verify-citations.sh`）/ 孤儿业务节点 / 入口漏枚举 / 分母缩小 / orphan 漏报 / 断裂边漏配 / dispatcher 未展开 / traced 可达链不可复现 / 叙事过期未标 / 含糊到无用 / 状态轴漏测 / punt 占比过高 / 覆盖率粉饰盲区 / 串行戳记造假 / 机械闸门冒充业务权威 / 密钥 PII 泄漏（1–18）；**新增白话/OKF 6 向量**：术语泄漏（正文+全部机读 frontmatter 字段）/ 小白可读性 / frontmatter 齐备合法 / gap 显式 / **frontmatter 过度声明（M9）** / **诚实信号默认可见（M10）**（19–24，闸门 token 污染 25 advisory）。SIGN-OFF 前置不变。
 - 每条发现按 **P0–P3** 分级，战报写入 `docs/codebook/narrative/audit/audit-narrative-<n>.md`（主 agent 亲核，抽查其证据，不轻信）。
 
 ## SIGN-OFF — 验收，决定是否 DONE

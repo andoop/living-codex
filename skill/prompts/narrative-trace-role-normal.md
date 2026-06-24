@@ -27,5 +27,6 @@
 - 每条挂证据；挂不上 → 删或降未解之谜，**不脑补连边充数**。
 
 ## 产出（按 templates/narrative-journey.md）
+> **你的草稿 = 线下证据层**，可保留技术性/术语；结论进入发布 journey 时由 SYNTHESIZE/PRESENT 按 `plain-language.md` 白话化、按 `narrative-book-spec.md` 编号 ①②③ 绑定线上↔线下。你**不**负责白话化。
 journey 草稿 + 证据锚点 + code/entry/**edge** orphan 候选 + 每条挂接方式(traced/heuristic) + traced 的**可达链**(grep 命中序列)。
 完成只回：草稿路径 + 一句话摘要（覆盖入口、有无 fire 端待配对、有无未解之谜）。
